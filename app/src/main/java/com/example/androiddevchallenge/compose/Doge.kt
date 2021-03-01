@@ -3,6 +3,7 @@ package com.example.androiddevchallenge.compose
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
@@ -11,6 +12,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -18,12 +20,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCompositionContext
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.androiddevchallenge.R
+import com.example.androiddevchallenge.desc.Descactivity
 import dev.chrisbanes.accompanist.glide.GlideImage
 
 val dogeData = arrayListOf(
@@ -42,24 +47,36 @@ val dogeData = arrayListOf(
     "https://i2.wp.com/www.happygodoodle.com/wp-content/uploads/2020/06/words-describe-dog-playful.jpg?w=840&ssl=1" to "Wet ‘n’ Wacky!",
     "https://i2.wp.com/www.happygodoodle.com/wp-content/uploads/2020/06/dogs-playing-words-describe-dogs.jpg?w=840&ssl=1" to "Zoomie Zoomers",
 )
-
+private const val TAG = "Doge"
 @Composable
 fun DogeComponent() {
     LazyColumn(content = {
         itemsIndexed(dogeData, itemContent = { index, item ->
            Card(
 
+
                shape = RoundedCornerShape(4.dp),
                modifier = Modifier
                    .fillMaxWidth()
-                       .background(androidx.compose.ui.graphics.Color.DarkGray)
+                   .background(androidx.compose.ui.graphics.Color.DarkGray)
                    .padding(10.dp)
-                   .height(200.dp)) {
+                   .clickable {
+                       Log.d(TAG, "DogeComponent: ")
+                       Descactivity.open(item.first,item.second)
+                   }
+                   .height(200.dp),
+
+           ) {
 
 
-               Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()){
-                   GlideImage(data = item.first,item.second,modifier = Modifier.width(200.dp).padding(15.dp))
-                   Text(text = item.second,modifier = Modifier.padding(0.dp,15.dp))
+               Row(modifier = Modifier
+                   .fillMaxWidth()
+                   .fillMaxHeight(),verticalAlignment = Alignment.CenterVertically){
+                   GlideImage(data = item.first,item.second,modifier = Modifier
+                       .width(200.dp)
+                       .fillMaxHeight()
+                       .padding(15.dp))
+                   Text(text = item.second,modifier = Modifier.padding(10.dp,15.dp))
 
                }
 

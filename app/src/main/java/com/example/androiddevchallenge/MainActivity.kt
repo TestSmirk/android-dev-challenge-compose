@@ -40,7 +40,7 @@ import kotlin.coroutines.coroutineContext
 
 private const val TAG = "MainActivity"
 
-val listItems by lazy { listOf("Doge" to  R.mipmap.doge, "DogeNews" to  R.mipmap.doge_news,  "Dog" to R.mipmap.dog) }
+val listItems by lazy { listOf("Doge" to  R.mipmap.doge, "DogeNews" to  R.mipmap.doge_news, ) }
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
