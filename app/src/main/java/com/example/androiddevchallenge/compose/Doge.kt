@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bumptech.glide.request.RequestOptions
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.desc.Descactivity
 import dev.chrisbanes.accompanist.glide.GlideImage
@@ -55,7 +56,7 @@ fun DogeComponent() {
            Card(
 
 
-               shape = RoundedCornerShape(4.dp),
+               shape = RoundedCornerShape(12.dp),
                modifier = Modifier
                    .fillMaxWidth()
                    .background(androidx.compose.ui.graphics.Color.DarkGray)
@@ -75,7 +76,16 @@ fun DogeComponent() {
                    GlideImage(data = item.first,item.second,modifier = Modifier
                        .width(200.dp)
                        .fillMaxHeight()
-                       .padding(15.dp))
+                       .padding(15.dp)
+                   ,
+
+                       requestBuilder = {
+                           val options = RequestOptions()
+                           options.centerCrop()
+
+                           apply(options)
+                       }
+                       )
                    Text(text = item.second,modifier = Modifier.padding(10.dp,15.dp))
 
                }
